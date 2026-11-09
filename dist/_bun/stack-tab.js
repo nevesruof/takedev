@@ -1,6 +1,114 @@
-import{Mb as e,Nb as t}from"./i4hv75y0pok2g.olqfze.x.js";
+import { Mb as e, Nb as t } from "./i4hv75y0pok2g.olqfze.x.js";
 
-const groups = [{"title":"languages","items":[["TypeScript","typescript"],["JavaScript","javascript"],["Python","python"],["Go","go"],["Rust","rust"],["Java","java"],["Kotlin","kotlin"],["C","c"],["C++","cpp"],["Objective-C","objc"],["Luau","luau"],["Bash","bash"],["HTML","html"],["CSS","css"],["WebAssembly","wasm"],["SQL","sql"],["GraphQL","graphql"]]},{"title":"frontend","items":[["React","react"],["Next.js","nextjs"],["Svelte","svelte"],["SvelteKit","svelte"],["Astro","astro"],["Tailwind","tailwind"],["shadcn/ui","shadcn"],["Radix","radix"],["Motion","motion"]]},{"title":"backend","items":[["Node.js","nodejs"],["Express","express"],["Hono","hono"],["Fastify","fastify"],["Elysia","elysia"],["FastAPI","fastapi"],["tRPC","trpc"],["discord.py","discord"]]},{"title":"libraries","items":[["Zod","zod"],["Pydantic","pydantic"],["Prisma","prisma"],["Drizzle","drizzle"],["TanStack Query","tanstack"]]},{"title":"apps","items":[["Electron","electron"],["Tauri","tauri"]]},{"title":"tooling","items":[["Vite","vite"],["Webpack","webpack"],["Vitest","vitest"],["Jest","jest"],["Playwright","playwright"],["Puppeteer","puppeteer"]]},{"title":"data","items":[["PostgreSQL","postgresql"],["Redis","redis"],["Backblaze B2","backblaze"]]},{"title":"formats","items":[["JSON","json"],["YAML","yaml"],["TOML","toml"],["Prisma schema","prisma"],["Markdown","markdown"],["Regex","regex"]]},{"title":"infra","items":[["Bun","bun"],["Docker","docker"],["Kubernetes","kubernetes"],["Vercel","vercel"],["Cloudflare","cloudflare"],["AWS","aws"]]}];
+const groups = [
+  {
+    title: "languages",
+    items: [
+      ["TypeScript", "typescript"],
+      ["JavaScript", "javascript"],
+      ["Python", "python"],
+      ["Go", "go"],
+      ["Rust", "rust"],
+      ["Java", "java"],
+      ["Kotlin", "kotlin"],
+      ["C", "c"],
+      ["C++", "cpp"],
+      ["Objective-C", "objc"],
+      ["Luau", "luau"],
+      ["Bash", "bash"],
+      ["HTML", "html"],
+      ["CSS", "css"],
+      ["WebAssembly", "wasm"],
+      ["SQL", "sql"],
+      ["GraphQL", "graphql"],
+    ],
+  },
+  {
+    title: "frontend",
+    items: [
+      ["React", "react"],
+      ["Next.js", "nextjs"],
+      ["Svelte", "svelte"],
+      ["SvelteKit", "svelte"],
+      ["Astro", "astro"],
+      ["Tailwind", "tailwind"],
+      ["shadcn/ui", "shadcn"],
+      ["Radix", "radix"],
+      ["Motion", "motion"],
+    ],
+  },
+  {
+    title: "backend",
+    items: [
+      ["Node.js", "nodejs"],
+      ["Express", "express"],
+      ["Hono", "hono"],
+      ["Fastify", "fastify"],
+      ["Elysia", "elysia"],
+      ["FastAPI", "fastapi"],
+      ["tRPC", "trpc"],
+      ["discord.py", "discord"],
+    ],
+  },
+  {
+    title: "libraries",
+    items: [
+      ["Zod", "zod"],
+      ["Pydantic", "pydantic"],
+      ["Prisma", "prisma"],
+      ["Drizzle", "drizzle"],
+      ["TanStack Query", "tanstack"],
+    ],
+  },
+  {
+    title: "apps",
+    items: [
+      ["Electron", "electron"],
+      ["Tauri", "tauri"],
+    ],
+  },
+  {
+    title: "tooling",
+    items: [
+      ["Vite", "vite"],
+      ["Webpack", "webpack"],
+      ["Vitest", "vitest"],
+      ["Jest", "jest"],
+      ["Playwright", "playwright"],
+      ["Puppeteer", "puppeteer"],
+    ],
+  },
+  {
+    title: "data",
+    items: [
+      ["PostgreSQL", "postgresql"],
+      ["Redis", "redis"],
+      ["Backblaze B2", "backblaze"],
+    ],
+  },
+  {
+    title: "formats",
+    items: [
+      ["JSON", "json"],
+      ["YAML", "yaml"],
+      ["TOML", "toml"],
+      ["Prisma schema", "prisma"],
+      ["Markdown", "markdown"],
+      ["Regex", "regex"],
+    ],
+  },
+  {
+    title: "infra",
+    items: [
+      ["Bun", "bun"],
+      ["Docker", "docker"],
+      ["Kubernetes", "kubernetes"],
+      ["Vercel", "vercel"],
+      ["Cloudflare", "cloudflare"],
+      ["AWS", "aws"],
+    ],
+  },
+];
 
 const total = groups.reduce((sum, group) => sum + group.items.length, 0);
 
@@ -33,7 +141,11 @@ function Chip({ item, index }) {
     "data-name": name.toLowerCase(),
     style,
     children: [
-      e("span", { className: "stk-ico", style: { "--ico": "url(/assets/tech/" + icon + ".svg)" }, "aria-hidden": true }),
+      e("span", {
+        className: "stk-ico",
+        style: { "--ico": "url(/assets/tech/" + icon + ".svg)" },
+        "aria-hidden": true,
+      }),
       e("span", { className: "stk-name", children: name }),
     ],
   });

@@ -1,4 +1,4 @@
-# iTake — Vercel
+# Take — Vercel
 
 1. Descomprime este ZIP.
 2. Sube su contenido a la raíz de tu repositorio: vercel.json y dist deben estar al mismo nivel.

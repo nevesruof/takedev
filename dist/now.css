@@ -327,7 +327,6 @@
   .nw-input {
     font-size: 12px;
   }
-
 }
 
 @keyframes nw-in {
@@ -381,25 +380,25 @@
   }
 }
 
-:root[data-theme=light] .nw {
+:root[data-theme="light"] .nw {
   --glass: color-mix(in srgb, var(--fg) 3%, transparent);
   --glass-shine: rgb(255 255 255 / 0.9);
 }
 
-:root[data-theme=light] .nw-notice-pane {
+:root[data-theme="light"] .nw-notice-pane {
   background: color-mix(in srgb, var(--bg) 70%, transparent);
   box-shadow:
     inset 0 1px 0 var(--glass-shine),
     0 24px 48px -34px rgb(0 0 0 / 0.2);
 }
 
-:root[data-theme=light] .nw-terminal {
+:root[data-theme="light"] .nw-terminal {
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   box-shadow:
     inset 0 1px 0 var(--glass-shine),
     0 24px 48px -34px rgb(0 0 0 / 0.2);
 }
 
-:root[data-theme=light] .nw-backdrop i {
+:root[data-theme="light"] .nw-backdrop i {
   background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 14%, transparent), transparent);
 }

@@ -15,7 +15,8 @@ export const assets = {
   "https://i.scdn.co/image/ab6761610000e5eb7215ccc01c6b8f0fc59adebb": "/assets/music-b52df286bb57.jpg",
   "https://i.scdn.co/image/ab6761610000e5eb5ef0c8e8f0bddef7887936df": "/assets/music-06615d054722.jpg",
   "https://i.scdn.co/image/ab6761610000e5eb95420172bd991701b0160441": "/assets/music-7863cc4bf9c7.jpg",
-  "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/21/16/d2/2116d29a-be71-b6e5-f504-6b886aed15c2/artwork.jpg/768x768bb.jpg": "/assets/music-7498ef2c63cd.jpg",
+  "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/21/16/d2/2116d29a-be71-b6e5-f504-6b886aed15c2/artwork.jpg/768x768bb.jpg":
+    "/assets/music-7498ef2c63cd.jpg",
   "https://i.scdn.co/image/ab6761610000e5ebb0a78c0e27b5b7d7abbf7722": "/assets/music-2bb9e41ed852.jpg",
   "https://i.scdn.co/image/ab6761610000e5ebf75ff4ae945fb19940b3210f": "/assets/music-ead2ecbf324b.jpg",
   "https://i.scdn.co/image/ab67616d0000b27348ea1676b98a5a426cb0ea38": "/assets/music-f4e8f925fa66.jpg",
@@ -24,16 +25,19 @@ export const assets = {
   "https://i.scdn.co/image/ab6761610000e5eb9c6b173d8ff98005877f90c8": "/assets/music-64a5f1473bdf.jpg",
   "https://i.scdn.co/image/ab6761610000e5eb43e7e81f601cf83cf505ba4f": "/assets/music-4a8346633253.jpg",
   "https://i.scdn.co/image/ab67616d0000b273dc3bc95fbd2d7a4e4e62a612": "/assets/music-044643243e78.jpg",
-  "https://avatars.githubusercontent.com/u/186426778?v=4": "/assets/itake-github-avatar.png"
+  "https://avatars.githubusercontent.com/u/186426778?v=4": "/assets/itake-github-avatar.png",
 };
 export const snapshots = {
   "https://api.lanyard.rest/v1/users/1239908273885286546": "/data/presence.json",
   "https://api.github.com/users/iTakeDev": "/data/github-profile.json",
   "https://api.github.com/users/iTakeDev/repos": "/data/github-repos.json",
-  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/streams/recent": "/data/music-recent.json",
-  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/streams/stats": "/data/music-stats.json",
+  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/streams/recent":
+    "/data/music-recent.json",
+  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/streams/stats":
+    "/data/music-stats.json",
   "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/albums": "/data/music-albums.json",
-  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/artists": "/data/music-artists.json",
+  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/artists":
+    "/data/music-artists.json",
   "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/tracks": "/data/music-tracks.json",
-  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/genres": "/data/music-genres.json"
+  "https://beta-api.stats.fm/api/v1/users/31esju7gpv3nvyqglogd3mqyczd4/top/genres": "/data/music-genres.json",
 };

@@ -46,7 +46,9 @@
   font-size: 12px;
   outline: none;
   user-select: text;
-  transition: border-color 0.15s, width 0.3s cubic-bezier(0.22, 1, 0.32, 1);
+  transition:
+    border-color 0.15s,
+    width 0.3s cubic-bezier(0.22, 1, 0.32, 1);
 }
 
 .stk-search::placeholder {
@@ -133,7 +135,11 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(120% 140% at 50% 0%, color-mix(in srgb, var(--tint) 16%, transparent), transparent 70%);
+  background: radial-gradient(
+    120% 140% at 50% 0%,
+    color-mix(in srgb, var(--tint) 16%, transparent),
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -156,7 +162,9 @@
   background: var(--muted);
   -webkit-mask: var(--ico) center / contain no-repeat;
   mask: var(--ico) center / contain no-repeat;
-  transition: background-color 0.2s ease, transform 0.4s cubic-bezier(0.22, 1, 0.32, 1);
+  transition:
+    background-color 0.2s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.32, 1);
 }
 
 .stk-chip:hover .stk-ico {

@@ -1,25 +1,44 @@
-import{Mb as e,Nb as t}from"./i4hv75y0pok2g.olqfze.x.js";
-import{s as projects}from"./sph866vka5urq.ckz5pp.x.js";
-import{groups as stackGroups}from"./stack-tab.js?v=3";
+import { Mb as e, Nb as t } from "./i4hv75y0pok2g.olqfze.x.js";
+import { s as projects } from "./sph866vka5urq.ckz5pp.x.js";
+import { groups as stackGroups } from "./stack-tab.js?v=3";
 
 const FRONTEND_SINCE = 2020;
 const FULL_STACK_SINCE = 2023;
 const USER = "guest";
-const HOST = "itake";
+const HOST = "take";
 
 const links = {
-  github: "https://github.com/iTakeDev",
-  discord: "https://discord.com/users/1239908273885286546",
-  telegram: "https://t.me/nevesruof",
+  discord: "https://discord.com/users/893966003690668102",
 };
 
 const currentYear = new Date().getFullYear();
 const stackTotal = stackGroups.reduce((sum, group) => sum + group.items.length, 0);
 
-
 const commandNames = [
-  "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "hostname", "uname", "uptime", "date", "echo",
-  "history", "sudo", "su", "now", "stack", "projects", "open", "contact", "about", "theme", "clear", "exit",
+  "help",
+  "ls",
+  "cd",
+  "pwd",
+  "cat",
+  "neofetch",
+  "whoami",
+  "hostname",
+  "uname",
+  "uptime",
+  "date",
+  "echo",
+  "history",
+  "sudo",
+  "su",
+  "now",
+  "stack",
+  "projects",
+  "open",
+  "contact",
+  "about",
+  "theme",
+  "clear",
+  "exit",
 ];
 
 function projectLines(project) {
@@ -44,36 +63,44 @@ function svgNode(name, attributes = {}, children = []) {
 function createMark() {
   const id = "nw-mark-" + Math.random().toString(36).slice(2, 8);
 
-  return svgNode("svg", { viewBox: "0 0 64 64", width: "72", height: "72", "aria-hidden": "true", fill: "none" }, [
-    svgNode("defs", {}, [
-      svgNode("linearGradient", { id: id + "-ring", x1: "10", y1: "8", x2: "54", y2: "58", gradientUnits: "userSpaceOnUse" }, [
-        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.9" }),
-        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.18" }),
+  return svgNode(
+    "svg",
+    { viewBox: "0 0 64 64", width: "72", height: "72", "aria-hidden": "true", fill: "none" },
+    [
+      svgNode("defs", {}, [
+        svgNode(
+          "linearGradient",
+          { id: id + "-ring", x1: "10", y1: "8", x2: "54", y2: "58", gradientUnits: "userSpaceOnUse" },
+          [
+            svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.9" }),
+            svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.18" }),
+          ],
+        ),
       ]),
-    ]),
-    svgNode("circle", {
-      cx: "32",
-      cy: "32",
-      r: "26",
-      stroke: "url(#" + id + "-ring)",
-      "stroke-width": "1.6",
-      "stroke-linecap": "round",
-      "stroke-dasharray": "148 15.4",
-      transform: "rotate(-35 32 32)",
-    }),
-    ...[26, 38].map((cx) =>
       svgNode("circle", {
-        cx,
+        cx: "32",
         cy: "32",
-        r: "12",
-        fill: "currentColor",
-        "fill-opacity": "0.3",
-        stroke: "currentColor",
-        "stroke-opacity": "0.55",
-        "stroke-width": "1",
+        r: "26",
+        stroke: "url(#" + id + "-ring)",
+        "stroke-width": "1.6",
+        "stroke-linecap": "round",
+        "stroke-dasharray": "148 15.4",
+        transform: "rotate(-35 32 32)",
       }),
-    ),
-  ]);
+      ...[26, 38].map((cx) =>
+        svgNode("circle", {
+          cx,
+          cy: "32",
+          r: "12",
+          fill: "currentColor",
+          "fill-opacity": "0.3",
+          stroke: "currentColor",
+          "stroke-opacity": "0.55",
+          "stroke-width": "1",
+        }),
+      ),
+    ],
+  );
 }
 
 function createFileSystem() {
@@ -82,7 +109,7 @@ function createFileSystem() {
 
   return dir({
     "about.md": file(() => [
-      "# iTake (@cheatinformer)",
+      "# Take (@singledeve)",
       "",
       "full-stack dev shipping bots, web apps, and products.",
       "frontend since " + FRONTEND_SINCE + ", full stack since " + FULL_STACK_SINCE + ".",
@@ -95,15 +122,16 @@ function createFileSystem() {
       "building  Larp Client, a Minecraft client",
       "          visuals, HUD and modules",
     ]),
-    "contact.txt": file(() => [
-      "github    " + links.github,
-      "discord   " + links.discord,
-      "telegram  " + links.telegram,
-    ]),
-    projects: dir(Object.fromEntries(projects.map((project) => [project.id + ".md", file(() => projectLines(project))]))),
+    "contact.txt": file(() => ["discord   " + links.discord]),
+    projects: dir(
+      Object.fromEntries(projects.map((project) => [project.id + ".md", file(() => projectLines(project))])),
+    ),
     stack: dir(
       Object.fromEntries(
-        stackGroups.map((group) => [group.title + ".txt", file(() => [group.items.map((item) => item[0]).join(", ")])]),
+        stackGroups.map((group) => [
+          group.title + ".txt",
+          file(() => [group.items.map((item) => item[0]).join(", ")]),
+        ]),
       ),
     ),
   });
@@ -231,11 +259,17 @@ function mountTerminal(root) {
 
   function neofetch() {
     const rows = [
-      ["OS", "iTake Linux"],
+      ["OS", "Take Linux"],
       ["Uptime", currentYear - FRONTEND_SINCE + " years"],
       ["Shell", "itsh"],
       ["Packages", stackTotal + " (stack)"],
-      ["Languages", stackGroups[0].items.slice(0, 4).map((item) => item[0]).join(", ")],
+      [
+        "Languages",
+        stackGroups[0].items
+          .slice(0, 4)
+          .map((item) => item[0])
+          .join(", "),
+      ],
       ["Shipped", projects.length + " projects"],
       ["Status", "no longer part of new projects"],
     ];
@@ -306,7 +340,13 @@ function mountTerminal(root) {
         ["clear", "clear the screen"],
       ];
       for (const [command, description] of rows) {
-        printColumns([[command, "nw-cmd"], [description, "nw-dim"]], [16]);
+        printColumns(
+          [
+            [command, "nw-cmd"],
+            [description, "nw-dim"],
+          ],
+          [16],
+        );
       }
       print("also: pwd, whoami, hostname, uname, uptime, date, echo, history, sudo, exit", "nw-dim");
     },
@@ -380,17 +420,29 @@ function mountTerminal(root) {
       print(HOST);
     },
     uname(args) {
-      print(args.includes("-a") ? "Linux " + HOST + " 6.1.0-take #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux" : "Linux");
+      print(
+        args.includes("-a")
+          ? "Linux " + HOST + " 6.1.0-take #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux"
+          : "Linux",
+      );
     },
     uptime() {
       const clock = new Date().toTimeString().slice(0, 8);
-      print(clock + " up " + (currentYear - FRONTEND_SINCE) + " years, 1 user, load average: 0.08, 0.04, 0.01");
+      print(
+        clock + " up " + (currentYear - FRONTEND_SINCE) + " years, 1 user, load average: 0.08, 0.04, 0.01",
+      );
     },
     date() {
       print(new Date().toString());
     },
     echo(args) {
-      print(args.join(" ").replace(/\$USER/g, USER).replace(/\$HOME/g, "/home/" + USER).replace(/\$HOSTNAME/g, HOST));
+      print(
+        args
+          .join(" ")
+          .replace(/\$USER/g, USER)
+          .replace(/\$HOME/g, "/home/" + USER)
+          .replace(/\$HOSTNAME/g, HOST),
+      );
     },
     history() {
       history.forEach((entry, index) => printColumns([[String(index + 1), "nw-dim"], [entry]], [5]));
@@ -399,10 +451,18 @@ function mountTerminal(root) {
       const query = args.join(" ").toLowerCase();
       const matches = stackGroups.filter((group) => !query || group.title.includes(query));
       if (!matches.length) {
-        return print("no group called '" + query + "'. try: " + stackGroups.map((group) => group.title).join(", "));
+        return print(
+          "no group called '" + query + "'. try: " + stackGroups.map((group) => group.title).join(", "),
+        );
       }
       for (const group of matches) {
-        printColumns([[group.title, "nw-cmd"], [group.items.map((item) => item[0]).join(", "), "nw-dim"]], [11]);
+        printColumns(
+          [
+            [group.title, "nw-cmd"],
+            [group.items.map((item) => item[0]).join(", "), "nw-dim"],
+          ],
+          [11],
+        );
       }
     },
     projects() {
@@ -432,7 +492,11 @@ function mountTerminal(root) {
       if (!toggle) return;
       const box = root.getBoundingClientRect();
       toggle.dispatchEvent(
-        new MouseEvent("click", { bubbles: true, clientX: box.left + box.width / 2, clientY: box.top + box.height / 2 }),
+        new MouseEvent("click", {
+          bubbles: true,
+          clientX: box.left + box.width / 2,
+          clientY: box.top + box.height / 2,
+        }),
       );
     },
     sudo(args) {
@@ -508,7 +572,9 @@ function mountTerminal(root) {
       const slash = last.lastIndexOf("/");
       const base = slash >= 0 ? last.slice(0, slash + 1) : "";
       const { node } = resolve(base);
-      candidates = node?.children ? entries(node).map((item) => base + item.name + (item.dir ? "/" : "")) : [];
+      candidates = node?.children
+        ? entries(node).map((item) => base + item.name + (item.dir ? "/" : ""))
+        : [];
     }
 
     const matches = candidates.filter((candidate) => candidate.toLowerCase().startsWith(last));
@@ -580,7 +646,8 @@ function mountTerminal(root) {
   });
 
   root.addEventListener("click", (event) => {
-    if (!window.getSelection()?.toString() && !event.target.closest("a")) input.focus({ preventScroll: true });
+    if (!window.getSelection()?.toString() && !event.target.closest("a"))
+      input.focus({ preventScroll: true });
   });
 
   refreshPrompt();
@@ -605,7 +672,11 @@ function Now() {
           t("div", {
             className: "nw-bar",
             children: [
-              t("span", { className: "nw-dots", "aria-hidden": true, children: [e("i", {}), e("i", {}), e("i", {})] }),
+              t("span", {
+                className: "nw-dots",
+                "aria-hidden": true,
+                children: [e("i", {}), e("i", {}), e("i", {})],
+              }),
               e("span", { className: "nw-title", children: USER + "@" + HOST + ": ~" }),
             ],
           }),
@@ -637,21 +708,21 @@ function Notice() {
     className: "nw nw-solo",
     children: [
       t("section", {
-          className: "nw-notice",
-          children: t("div", {
-            className: "nw-notice-pane",
-            children: [
-              t("span", { className: "nw-backdrop", "aria-hidden": true, children: [e("i", {}), e("i", {})] }),
-              t("div", {
-                className: "nw-notice-copy",
-                children: [
-                  e("strong", { children: "no longer part of new projects" }),
-                  e("span", { children: "past work stays online, everything new is on hold." }),
-                ],
-              }),
-            ],
-          }),
+        className: "nw-notice",
+        children: t("div", {
+          className: "nw-notice-pane",
+          children: [
+            t("span", { className: "nw-backdrop", "aria-hidden": true, children: [e("i", {}), e("i", {})] }),
+            t("div", {
+              className: "nw-notice-copy",
+              children: [
+                e("strong", { children: "no longer part of new projects" }),
+                e("span", { children: "past work stays online, everything new is on hold." }),
+              ],
+            }),
+          ],
         }),
+      }),
     ],
   });
 }

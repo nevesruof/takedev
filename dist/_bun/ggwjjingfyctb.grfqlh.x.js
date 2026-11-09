@@ -1,1 +1,128 @@
-import{$a as I,ab as R,bb as z,cb as C,lb as $}from"./86m3lf6lm9qni.i2l607.x.js";import{Mb as t,Nb as n}from"./i4hv75y0pok2g.olqfze.x.js";var b="q3pep87h2149fwgh0vymxtynsljphfxbom3icejo345",h="dg7ueiiponhsks6sji7ht1bgzunf8shgktkhmem",x="okwrtg5lvx3k83m7vno34gf0tekadc8y",w="pzsk5xzi3q3h7anm9a4ca16boio8k264";function N({title:e,meta:r,children:o}){return n("section",{className:b,children:[n("header",{className:h,children:[t("span",{className:x,children:e}),r?t("span",{className:w,children:r}):null]}),o]})}var k="s8mkng9z6pbc48r1uh53hv4q70f1m9e5an4x",v="oweo494t381qnhfctycmb3zoh6cffbluiry0",S="kwj52whlk5t5eaaactloci2n78ku7nqbq79nepp0zus";var u=[[60,1,"s"],[3600,60,"m"],[86400,3600,"h"],[604800,86400,"d"],[2629800,604800,"w"],[Number.POSITIVE_INFINITY,2629800,"mo"]],K=(e,r=Date.now())=>{let o=Math.max(0,(r-e)/1000),a=u.find(([l])=>o<l)??u[u.length-1],i=Math.floor(o/a[1]);return i<=0&&a[2]==="s"?"now":`${i}${a[2]}`},P=(e)=>e==null?"—":e>=1000?`${(e/1000).toFixed(e>=1e4?0:1)}k`:String(e),f=(e)=>e.split(/\s+/).slice(0,2).map((r)=>r[0]??"").join("").toUpperCase()||"?",Q=(e)=>{if(!Number.isFinite(e))return "";let r=Math.round(e/60000);if(r<60)return`${r}m`;let o=Math.floor(r/60),a=r%60;return a===0?`${o}h`:`${o}h ${a}m`},G=(e)=>`${P(Math.round(e/3600000))}h`;var ne="gi9ufc9wcsli1t40hsuayqc8gnkdubm8trpu702g",se="szdwu426pfp4kvsuodpri1oj57omkmj1";var H=(e)=>`${e[0]} ${e[1]} ${e[2]}`,J=async(e)=>{let r=await C(e),[o]=R(z(r,8)),a=o?.color??[120,120,130];return H(I(a,{saturation:1.5,lightness:20}))},g=(e)=>{let{data:r}=$({queryKey:["dom-color",e],queryFn:()=>J(e),enabled:Boolean(e),staleTime:Number.POSITIVE_INFINITY,gcTime:Number.POSITIVE_INFINITY,retry:!1});return r??null};function d({src:e,name:r,size:o,fill:a=!1,rounded:i="sm"}){let p={"--art-color":g(e)??"var(--accent, 120 120 130)"};return t("span",{className:k,style:o===void 0?p:{...p,width:o,height:o},"data-rounded":i,"data-fill":a?"":void 0,children:e?t("img",{className:v,src:e,alt:"",loading:"lazy",decoding:"async"}):t("span",{className:S,children:f(r)})})}var M="eg4la9jcb3u5ovy1q3z4bh2387ih6fgkg58p7zccbxt";function A({children:e}){return t("p",{className:M,children:e})}var V="zsxxjibf8juvgvjplnxy8yqen79034wxg9bbvgud2i",_="cztrqgxlrnoassz8fwapif71y1i11xsk9w8",E="yi7jnwlrhpr13spypnm3ntc6eqstj9xld",F="tyehaxdqqgeck05japf3blpxwnk0h3abzo7jpm",D="czynepi9mbfj6rrxezc7wkcha7ao00sm",L="phsqy4vyk7ogdhn0gd6q71uo17loxfjvx0",O="fn0i5co7xdbk968dxd3vip5fcjm7itbvz";function Y({image:e,title:r,subtitle:o,href:a,rank:i,trailing:l,rounded:p="sm"}){return t("li",{className:V,children:n("a",{className:_,"data-ranked":i===void 0?void 0:"",href:a,target:"_blank",rel:"noreferrer noopener",children:[i===void 0?null:t("span",{className:E,children:i}),t(d,{src:e,name:r,size:30,rounded:p}),n("span",{className:F,children:[t("span",{className:D,children:r}),o?t("span",{className:L,children:o}):null]}),l?t("span",{className:O,children:l}):null]})})}var q="sxao26i9gp5ffrnxngjtd0n7wdvc371mwia8fxy2l9g";function y({width:e="100%",height:r=9,radius:o=3,index:a=0}){let i={"--shimmer-delay":`${a*90}ms`};return t("span",{className:q,style:{...i,width:e,height:r,borderRadius:o}})}export{K as Sa,P as Ta,Q as Ua,G as Va,d as Wa,A as Xa,Y as Ya,N as Za,y as _a};
+import { $a as I, ab as R, bb as z, cb as C, lb as $ } from "./86m3lf6lm9qni.i2l607.x.js";
+import { Mb as t, Nb as n } from "./i4hv75y0pok2g.olqfze.x.js";
+var b = "q3pep87h2149fwgh0vymxtynsljphfxbom3icejo345",
+  h = "dg7ueiiponhsks6sji7ht1bgzunf8shgktkhmem",
+  x = "okwrtg5lvx3k83m7vno34gf0tekadc8y",
+  w = "pzsk5xzi3q3h7anm9a4ca16boio8k264";
+function N({ title: e, meta: r, children: o }) {
+  return n("section", {
+    className: b,
+    children: [
+      n("header", {
+        className: h,
+        children: [
+          t("span", { className: x, children: e }),
+          r ? t("span", { className: w, children: r }) : null,
+        ],
+      }),
+      o,
+    ],
+  });
+}
+var k = "s8mkng9z6pbc48r1uh53hv4q70f1m9e5an4x",
+  v = "oweo494t381qnhfctycmb3zoh6cffbluiry0",
+  S = "kwj52whlk5t5eaaactloci2n78ku7nqbq79nepp0zus";
+var u = [
+    [60, 1, "s"],
+    [3600, 60, "m"],
+    [86400, 3600, "h"],
+    [604800, 86400, "d"],
+    [2629800, 604800, "w"],
+    [Number.POSITIVE_INFINITY, 2629800, "mo"],
+  ],
+  K = (e, r = Date.now()) => {
+    let o = Math.max(0, (r - e) / 1000),
+      a = u.find(([l]) => o < l) ?? u[u.length - 1],
+      i = Math.floor(o / a[1]);
+    return i <= 0 && a[2] === "s" ? "now" : `${i}${a[2]}`;
+  },
+  P = (e) => (e == null ? "—" : e >= 1000 ? `${(e / 1000).toFixed(e >= 1e4 ? 0 : 1)}k` : String(e)),
+  f = (e) =>
+    e
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((r) => r[0] ?? "")
+      .join("")
+      .toUpperCase() || "?",
+  Q = (e) => {
+    if (!Number.isFinite(e)) return "";
+    let r = Math.round(e / 60000);
+    if (r < 60) return `${r}m`;
+    let o = Math.floor(r / 60),
+      a = r % 60;
+    return a === 0 ? `${o}h` : `${o}h ${a}m`;
+  },
+  G = (e) => `${P(Math.round(e / 3600000))}h`;
+var ne = "gi9ufc9wcsli1t40hsuayqc8gnkdubm8trpu702g",
+  se = "szdwu426pfp4kvsuodpri1oj57omkmj1";
+var H = (e) => `${e[0]} ${e[1]} ${e[2]}`,
+  J = async (e) => {
+    let r = await C(e),
+      [o] = R(z(r, 8)),
+      a = o?.color ?? [120, 120, 130];
+    return H(I(a, { saturation: 1.5, lightness: 20 }));
+  },
+  g = (e) => {
+    let { data: r } = $({
+      queryKey: ["dom-color", e],
+      queryFn: () => J(e),
+      enabled: Boolean(e),
+      staleTime: Number.POSITIVE_INFINITY,
+      gcTime: Number.POSITIVE_INFINITY,
+      retry: !1,
+    });
+    return r ?? null;
+  };
+function d({ src: e, name: r, size: o, fill: a = !1, rounded: i = "sm" }) {
+  let p = { "--art-color": g(e) ?? "var(--accent, 120 120 130)" };
+  return t("span", {
+    className: k,
+    style: o === void 0 ? p : { ...p, width: o, height: o },
+    "data-rounded": i,
+    "data-fill": a ? "" : void 0,
+    children: e
+      ? t("img", { className: v, src: e, alt: "", loading: "lazy", decoding: "async" })
+      : t("span", { className: S, children: f(r) }),
+  });
+}
+var M = "eg4la9jcb3u5ovy1q3z4bh2387ih6fgkg58p7zccbxt";
+function A({ children: e }) {
+  return t("p", { className: M, children: e });
+}
+var V = "zsxxjibf8juvgvjplnxy8yqen79034wxg9bbvgud2i",
+  _ = "cztrqgxlrnoassz8fwapif71y1i11xsk9w8",
+  E = "yi7jnwlrhpr13spypnm3ntc6eqstj9xld",
+  F = "tyehaxdqqgeck05japf3blpxwnk0h3abzo7jpm",
+  D = "czynepi9mbfj6rrxezc7wkcha7ao00sm",
+  L = "phsqy4vyk7ogdhn0gd6q71uo17loxfjvx0",
+  O = "fn0i5co7xdbk968dxd3vip5fcjm7itbvz";
+function Y({ image: e, title: r, subtitle: o, href: a, rank: i, trailing: l, rounded: p = "sm" }) {
+  return t("li", {
+    className: V,
+    children: n("a", {
+      className: _,
+      "data-ranked": i === void 0 ? void 0 : "",
+      href: a,
+      target: "_blank",
+      rel: "noreferrer noopener",
+      children: [
+        i === void 0 ? null : t("span", { className: E, children: i }),
+        t(d, { src: e, name: r, size: 30, rounded: p }),
+        n("span", {
+          className: F,
+          children: [
+            t("span", { className: D, children: r }),
+            o ? t("span", { className: L, children: o }) : null,
+          ],
+        }),
+        l ? t("span", { className: O, children: l }) : null,
+      ],
+    }),
+  });
+}
+var q = "sxao26i9gp5ffrnxngjtd0n7wdvc371mwia8fxy2l9g";
+function y({ width: e = "100%", height: r = 9, radius: o = 3, index: a = 0 }) {
+  let i = { "--shimmer-delay": `${a * 90}ms` };
+  return t("span", { className: q, style: { ...i, width: e, height: r, borderRadius: o } });
+}
+export { K as Sa, P as Ta, Q as Ua, G as Va, d as Wa, A as Xa, Y as Ya, N as Za, y as _a };

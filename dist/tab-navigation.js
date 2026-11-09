@@ -1,9 +1,6 @@
-import { Fb as toESM, Kb as requireReact } from './_bun/i4hv75y0pok2g.olqfze.x.js';
+import { Fb as toESM, Kb as requireReact } from "./_bun/i4hv75y0pok2g.olqfze.x.js";
 
 const React = toESM(requireReact(), 1);
-
-// One persistent highlight spans both rows. Moving it with CSS avoids relying
-// on shared-layout projection between separately mounted Motion elements.
 export function createTabIndicator(nav, indicator) {
   let frame = 0;
   let disposed = false;
@@ -16,19 +13,18 @@ export function createTabIndicator(nav, indicator) {
     indicator.style.width = `${target.width}px`;
     indicator.style.height = `${target.height}px`;
     indicator.style.transform = `translate3d(${target.left - parent.left}px, ${target.top - parent.top}px, 0)`;
-    indicator.style.opacity = '1';
-    if (!indicator.hasAttribute('data-ready')) {
+    indicator.style.opacity = "1";
+    if (!indicator.hasAttribute("data-ready")) {
       cancelAnimationFrame(frame);
-      // Paint the initial position before enabling subsequent transitions.
       frame = requestAnimationFrame(() => {
-        frame = requestAnimationFrame(() => indicator.setAttribute('data-ready', ''));
+        frame = requestAnimationFrame(() => indicator.setAttribute("data-ready", ""));
       });
     }
   };
-  const resize = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
+  const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
   resize?.observe(nav);
-  nav.querySelectorAll('[role="radio"]').forEach(button => resize?.observe(button));
-  window.addEventListener('resize', update);
+  nav.querySelectorAll('[role="radio"]').forEach((button) => resize?.observe(button));
+  window.addEventListener("resize", update);
   document.fonts?.ready.then(update);
   update();
   return {
@@ -37,7 +33,7 @@ export function createTabIndicator(nav, indicator) {
       disposed = true;
       cancelAnimationFrame(frame);
       resize?.disconnect();
-      window.removeEventListener('resize', update);
+      window.removeEventListener("resize", update);
     },
   };
 }

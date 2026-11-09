@@ -232,26 +232,23 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 22px;
+  gap: 12px 24px;
   margin: 8px 0 6px;
   line-height: 1.55;
 }
 
-.nw-art {
-  container-type: inline-size;
-  flex: 0 1 280px;
-  width: 280px;
-  max-width: 100%;
+.nw-logo {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 190px;
+  color: var(--fg);
 }
 
-.nw-art pre {
-  margin: 0;
-  color: color-mix(in srgb, var(--fg) 78%, transparent);
-  font: inherit;
-  font-size: calc(100cqw / 43.2);
-  line-height: 1;
-  white-space: pre;
-  user-select: none;
+.nw-logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .nw-info {

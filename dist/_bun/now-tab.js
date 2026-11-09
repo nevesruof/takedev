@@ -32,7 +32,53 @@ function projectLines(project) {
   return lines;
 }
 
-const carArt = ["                          .irrrrrrrrrrrrrl.", "                      :fHM@#M8#M8#MM8M@MM#@M9fri", "                     lr.::ilr9#MH2f2rrrrrrllllllrf2rl", "           .:i     :i........r8H#2rr2frrrii:......ir5Hr.", "          H8M#i  :i..........:59M@M@#8#M##8M#@88@MHA9H88flii.", "          l99H2r2rllll:iillrrf5AM@#8MM@@88@8@@@M88@88M##8#M#8#@#8H5Ai", "      irfffff22f222flrlrfrlli.:ilf9AH95955958M8@M8@@M@MM##8M8#88#8M@A", "     ...:r22ff2f2ffff22rl.  .lfH#99H95friiriiriilillilrrrf5@M@#958MH2", "   .:iii: r222f2ffffff2f2fff92f99AHAH9Hf2ff2f22ff22f2ff2229H9AHH22.", "   :iiiii::22f222ffffl:irff922llrrrr2fr222r22r2f2fff22ff222ff22f2ff.", "  :iiffli: rrrrrrrrri:ii.rr9fff2ff2fffrrrrrrlrrlrrrrrrlr2rr2rrrfrr22.", "  iirf2rii lrrrrrrrl.iii:ir9fff22f2ff222f2f222f2f2fff22f2frrf2rrrrr2f", "  iir2fli: rrrrrrrri:i9ri.rf2ff222fffff2222222fffffff222222f22f2ff22f", "  :iirlii.:llllllll.:r9fi lf2fff22fff2ff2f22225A9559HAHA5Af2f2f2ff2ff", "  .iiiii. rllllllll.i2A2i l2rrrrrrrrrrrrrrrrrr#8@MMM58AM#8Mrrrrrrrrrf", "   .:::.  :rlllllll.:rAr:.l2rrrrrrrrrrr2ff22222995A9AHH5HHHrrrrrrrrrf", "           :illlllri:ili::i:........:....i....i....i::::liiiiliiiii:.", "                   . iii     .......i....i....i..:il.ii.i....i.....", "                     ..        .....i....i....:...ii.ii.i....i.....", "                                                          .::iii:.", "                                                         .iif2frii.", "                                                          ..:::..", ""];
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function svgNode(name, attributes = {}, children = []) {
+  const node = document.createElementNS(SVG_NS, name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  node.append(...children);
+  return node;
+}
+
+function createMark() {
+  const id = "nw-car-" + Math.random().toString(36).slice(2, 8);
+  const line = { stroke: "currentColor", "stroke-width": "1.6", "stroke-linecap": "round", "stroke-linejoin": "round", fill: "none" };
+
+  return svgNode("svg", { viewBox: "0 0 200 80", width: "168", height: "67", "aria-hidden": "true", fill: "none" }, [
+    svgNode("defs", {}, [
+      svgNode("linearGradient", { id: id + "-body", x1: "0", y1: "0", x2: "0", y2: "1" }, [
+        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.16" }),
+        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.02" }),
+      ]),
+      svgNode("linearGradient", { id: id + "-ink", x1: "0", y1: "0", x2: "1", y2: "0" }, [
+        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.45" }),
+        svgNode("stop", { offset: "0.55", "stop-color": "currentColor", "stop-opacity": "0.95" }),
+        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.7" }),
+      ]),
+    ]),
+    svgNode("ellipse", { cx: "100", cy: "69", rx: "82", ry: "3.2", fill: "currentColor", "fill-opacity": "0.12" }),
+    svgNode("path", {
+      ...line,
+      stroke: "url(#" + id + "-ink)",
+      fill: "url(#" + id + "-body)",
+      d: "M18 56V46C18 41 22 39 29 38C50 35 64 22 92 21C108 21 119 28 128 34C146 36 168 38 177 46C181 49 181 53 178 56H164A12 12 0 0 0 140 56H60A12 12 0 0 0 36 56Z",
+    }),
+    svgNode("path", {
+      ...line,
+      "stroke-width": "1.2",
+      "stroke-opacity": "0.7",
+      d: "M68 33C78 26 86 24 94 24C106 24 113 29 120 33ZM96 24V33M93 33L91 53",
+    }),
+    svgNode("path", { ...line, "stroke-width": "1.2", "stroke-opacity": "0.7", d: "M158 40L172 43M176 56H186" }),
+    svgNode("path", { ...line, "stroke-width": "3", stroke: "currentColor", "stroke-opacity": "0.9", d: "M10 29L40 26" }),
+    svgNode("path", { ...line, "stroke-width": "1.4", "stroke-opacity": "0.8", d: "M21 40V30M33 38V27.5" }),
+    ...[48, 152].flatMap((cx) => [
+      svgNode("circle", { ...line, cx, cy: "56", r: "10", "stroke-width": "1.6" }),
+      svgNode("circle", { ...line, cx, cy: "56", r: "4", "stroke-width": "1.2", "stroke-opacity": "0.6" }),
+    ]),
+  ]);
+}
 
 function createFileSystem() {
   const dir = (children) => ({ children });
@@ -202,10 +248,8 @@ function mountTerminal(root) {
     box.className = "nw-line nw-fetch";
 
     const art = document.createElement("div");
-    art.className = "nw-art";
-    const picture = document.createElement("pre");
-    picture.textContent = carArt.join("\n");
-    art.append(picture);
+    art.className = "nw-logo";
+    art.append(createMark());
 
     const info = document.createElement("div");
     info.className = "nw-info";

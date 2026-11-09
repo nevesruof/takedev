@@ -1,43 +1,12 @@
-# Take — sitio personal
+# iTake — Vercel
 
-Sitio estático en HTML, CSS y JavaScript sin compilar ni dependencias. Se despliega en Vercel tal cual.
+1. Descomprime este ZIP.
+2. Sube su contenido a la raíz de tu repositorio: vercel.json y dist deben estar al mismo nivel.
+3. Importa el repositorio en Vercel o vuelve a desplegarlo.
+4. Root Directory: la carpeta que contiene vercel.json (raíz del repositorio si copiaste el contenido directamente).
+5. Framework Preset: Other. Output Directory: dist. Build Command: vacío. Install Command: vacío.
 
-## Despliegue
+No requiere npm ni compilación. El código HTML, CSS, JavaScript y las imágenes están en dist. Los módulos originales de la interfaz están compilados/minificados; los ajustes propios se encuentran también en archivos JavaScript y CSS separados.
 
-1. Sube el contenido de esta carpeta a la raíz del repositorio (`vercel.json` y `dist` al mismo nivel).
-2. Framework Preset: Other. Output Directory: `dist`. Build y Install Command vacíos.
-
-Para probarlo en local: `cd dist && python3 -m http.server 8000`.
-
-## Dónde cambiar cosas
-
-| Qué | Archivo |
-| --- | --- |
-| Nombre, usuario, bio, enlaces, Discord ID, usuario de stats.fm, zona horaria, proyecto actual | `dist/js/config.js` |
-| Lista de proyectos | `dist/js/data/projects.js` |
-| Stack (categorías y tecnologías) | `dist/js/data/stack.js` |
-| Máquinas, escritorio, software y herramientas | `dist/js/data/setup.js` |
-| Colores y tipografía | variables al inicio de `dist/css/base.css` |
-
-## Estructura
-
-```
-dist/
-  index.html
-  css/        base, componentes y páginas
-  js/
-    main.js, router.js, config.js
-    pages/    home, projects, music, stack, setup
-    services/ presence (Discord vía Lanyard) y statsfm
-    data/     contenido editable
-    lib/      utilidades (DOM, iconos, formato, efectos)
-    icons.js  iconos en SVG (generado)
-  data/       copia local de stats.fm por si la API no responde
-  assets/     fuente, favicon y portadas
-```
-
-## Notas
-
-- La presencia de Discord usa Lanyard: tu cuenta debe estar en su servidor (discord.gg/lanyard) para que aparezca el estado.
-- Los iconos son monocromos y se iluminan con su color de marca al pasar el cursor; si el color es demasiado oscuro para el fondo negro, usan blanco.
-- Atajos: `1`–`5` cambian de pestaña, `←` `→` navegan, `/` filtra el stack, `?` muestra la ayuda.
+Las pestañas usan parámetros de URL, por lo que no necesitan reglas de reescritura.
+Si el 404 continúa, revisa que estés abriendo la URL del último deployment exitoso y que el dominio esté asignado al proyecto correcto.

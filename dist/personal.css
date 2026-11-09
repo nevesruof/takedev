@@ -1,0 +1,114 @@
+/* Keep the same navigation grouping on mobile and desktop. */
+.b10ufoz4x7x64w3hyv91xpcwgwtc9tkoj4vnxp9j0hi {
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: auto;
+  max-width: calc(100vw - 80px);
+  height: auto;
+  padding: 0;
+}
+.tvf0cr8ct2phymh4pgb20hqc3i4akgl1 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--bar-border, var(--line));
+  border-radius: 999px;
+  background: var(--bar-surface, var(--bg));
+  box-shadow: var(--bar-shadow, none);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+}
+.y9pbfod88rqn434100piqgd8kuvboti54wwzbmc5j { height: 28px; padding: 0 10px; }
+.sw23rbp2wwcfl2r25wgthuxq1keqgkly5vutb { width: 12px; height: 12px; }
+.ss04qu3mx79w6go8ciglxhaiyw9labbv2w8vocmth0d { padding-top: 104px; }
+
+/* Put both row surfaces below one moving highlight, with labels above it. */
+.itake-tab-navigation { isolation: isolate; }
+.itake-tab-navigation .tvf0cr8ct2phymh4pgb20hqc3i4akgl1 {
+  position: relative;
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.itake-tab-navigation .tvf0cr8ct2phymh4pgb20hqc3i4akgl1::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -2;
+  pointer-events: none;
+  border: 1px solid var(--bar-border, var(--line));
+  border-radius: inherit;
+  background: var(--bar-surface, var(--bg));
+  box-shadow: var(--bar-shadow, none);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+}
+.itake-tab-indicator {
+  position: absolute;
+  inset: auto;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, width;
+}
+.itake-tab-indicator[data-ready] {
+  transition: transform .48s cubic-bezier(.22, 1, .32, 1),
+    width .48s cubic-bezier(.22, 1, .32, 1),
+    height .48s cubic-bezier(.22, 1, .32, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .itake-tab-indicator[data-ready] {
+    transition-duration: .14s;
+    transition-timing-function: ease-out;
+  }
+}
+
+/* Hide the white native scrollbar while preserving wheel, touch and keyboard scrolling. */
+html, body, body * { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar, body *::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+.itake-tab-stage { display: grid; align-content: center; flex: 1 0 auto; min-width: 0; }
+.itake-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  min-width: 0;
+  animation: itake-tab-enter .52s cubic-bezier(.22,1,.32,1) both;
+}
+@keyframes itake-tab-enter {
+  from { opacity: 0; transform: translateX(var(--tab-offset, 26px)); filter: blur(10px); }
+  to { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .itake-tab-panel { animation: itake-tab-fade .24s ease-out both; }
+}
+@keyframes itake-tab-fade { from { opacity: .35; } to { opacity: 1; } }
+
+.rrekyfi7mrt5eoiz44xhzcnf91bnbey7amqasy { flex-wrap: wrap; row-gap: 10px; }
+.we0dag8sz7207srs3qoph41cjli6n13oioywxxlrurh { font-size: clamp(18px, 4.35vw, 22px); gap: 8px; }
+.itake-stack-icon { filter: grayscale(1) brightness(0) opacity(.65); object-fit: contain; }
+[data-theme=dark] .itake-stack-icon { filter: grayscale(1) brightness(0) invert(1) opacity(.78); }
+.ixeil0ofqj4zmb8z2kbz12ya7t91kylb5nkhdyt { font-size: 12px; padding: 5px 8px 5px 6px; }
+
+.itake-music-empty { color: var(--muted); font-size: 12px; padding: 18px 0; }
+
+.itake-github-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 8px; line-height: 1.3; }
+.itake-new-account { color: var(--muted); font-size: 11px; font-weight: 400; white-space: nowrap; }
+.itake-activity-note { color: var(--muted); font-size: 10px; margin-left: auto; }
+.itake-demo-activity [data-level="1"] { background: #163a54; }
+.itake-demo-activity [data-level="2"] { background: #205b83; }
+.itake-demo-activity [data-level="3"] { background: #3985b5; }
+.itake-demo-activity [data-level="4"] { background: #ed9675; }

@@ -1,7 +1,7 @@
 import { Fb as toESM, Kb as requireReact, Mb as jsx } from './_bun/i4hv75y0pok2g.olqfze.x.js';
 
 const React = toESM(requireReact(), 1);
-const order = ['main', 'projects', 'music', 'stack', 'setup'];
+const order = ['main', 'projects', 'now', 'stack', 'setup'];
 
 // Animate a normal-flow panel, avoiding cross-browser SVG filters and measured
 // absolute-position containers. Content remains visible if animation is disabled.

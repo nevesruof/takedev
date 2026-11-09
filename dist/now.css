@@ -32,7 +32,7 @@
 .nw-backdrop i {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 5%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 9%, transparent), transparent);
   filter: blur(14px);
 }
 
@@ -49,7 +49,7 @@
   bottom: -50%;
   width: 45%;
   height: 160%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 3%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 6%, transparent), transparent);
   animation: nw-drift-b 15s ease-in-out infinite alternate;
 }
 
@@ -245,6 +245,21 @@
   color: var(--fg);
 }
 
+.nw-logo {
+  position: relative;
+  isolation: isolate;
+}
+
+.nw-logo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 20% 10% 4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 9%, transparent), transparent);
+  filter: blur(12px);
+}
+
 .nw-logo svg {
   display: block;
   width: 100%;
@@ -393,5 +408,5 @@
 }
 
 :root[data-theme=light] .nw-backdrop i {
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 8%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 14%, transparent), transparent);
 }

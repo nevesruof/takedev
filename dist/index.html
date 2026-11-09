@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Take</title>
+    <meta name="description" content="Take (@singledeve) — developer building discord bots, web apps and minecraft tools.">
+    <meta name="author" content="Take">
+    <meta name="theme-color" content="#030405">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Take">
+    <meta property="og:description" content="Developer building discord bots, web apps and minecraft tools.">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="preload" href="assets/fonts/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="modulepreload" href="js/main.js">
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true">
+      <span class="backdrop__glow backdrop__glow--a"></span>
+      <span class="backdrop__glow backdrop__glow--b"></span>
+      <span class="backdrop__grain"></span>
+    </div>
+    <div class="pointer-glow" id="pointer-glow" aria-hidden="true"></div>
+
+    <nav class="nav" id="nav" aria-label="Sections"></nav>
+    <button class="help-button" id="help-button" type="button" aria-label="Keyboard shortcuts">?</button>
+
+    <main class="shell">
+      <div class="stage" id="stage"></div>
+    </main>
+
+    <dialog class="help" id="help" aria-labelledby="help-title">
+      <form method="dialog" class="help__form">
+        <header class="help__header">
+          <h2 class="help__title" id="help-title">shortcuts</h2>
+          <button class="help__close" aria-label="Close">esc</button>
+        </header>
+        <dl class="help__list">
+          <div><dt><kbd>1</kbd> – <kbd>5</kbd></dt><dd>jump to a tab</dd></div>
+          <div><dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>previous / next tab</dd></div>
+          <div><dt><kbd>/</kbd></dt><dd>filter the stack</dd></div>
+          <div><dt><kbd>?</kbd></dt><dd>open this panel</dd></div>
+        </dl>
+      </form>
+    </dialog>
+
+    <noscript>
+      <p class="noscript">this site needs javascript to load its tabs.</p>
+    </noscript>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

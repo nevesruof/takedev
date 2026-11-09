@@ -7,12 +7,16 @@
 
 :root[data-theme=dark] {
   background-image:
-    radial-gradient(70% 42% at 12% 0%, rgb(255 255 255 / 0.05), transparent 70%),
-    radial-gradient(55% 38% at 100% 58%, rgb(255 255 255 / 0.032), transparent 70%);
+    radial-gradient(70% 42% at 12% 0%, rgb(255 255 255 / 0.065), transparent 70%),
+    radial-gradient(55% 38% at 100% 58%, rgb(255 255 255 / 0.04), transparent 70%);
   background-attachment: fixed;
 }
 
 [style*="--accent"] {
   --accent: 112 112 112 !important;
   --accent-strong: 160 160 160 !important;
+}
+
+.gi9ufc9wcsli1t40hsuayqc8gnkdubm8trpu702g {
+  display: none;
 }

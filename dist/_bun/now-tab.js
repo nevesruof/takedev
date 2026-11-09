@@ -16,84 +16,19 @@ const links = {
 const currentYear = new Date().getFullYear();
 const stackTotal = stackGroups.reduce((sum, group) => sum + group.items.length, 0);
 
-const numbers = [
-  { label: "years on the frontend", value: currentYear - FRONTEND_SINCE, suffix: "" },
-  { label: "years full stack", value: currentYear - FULL_STACK_SINCE, suffix: "" },
-  { label: "commissions", value: 20, suffix: "+" },
-  { label: "projects shipped", value: projects.length, suffix: "" },
-];
-
-function projectsOf(year) {
-  return projects.filter((project) => project.year === String(year));
-}
-
-const milestones = [
-  { year: String(FRONTEND_SINCE), title: "frontend", text: "where it started: building interfaces." },
-  { year: String(FULL_STACK_SINCE), title: "full stack", text: "moved past the frontend into bots, apps and products." },
-  ...[2024, 2025, 2026].map((year) => ({
-    year: String(year),
-    title: projectsOf(year).length + " projects shipped",
-    projects: projectsOf(year),
-  })),
-  { year: "now", title: "Larp Client", text: "building a Minecraft client. no longer part of new projects.", live: true },
-];
-
 const logo = [
-  "    .--.    ",
-  "   |o_o |   ",
-  "   |:_/ |   ",
-  "  //   \\ \\  ",
-  " (|     | ) ",
-  "/'\\_   _/`\\ ",
-  "\\___)=(___/ ",
+  "╭───────────╮",
+  "│ ▀▀▀███▀▀▀ │",
+  "│    ███    │",
+  "│    ███    │",
+  "│    ▀▀▀  ● │",
+  "╰───────────╯",
 ];
 
 const commandNames = [
   "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "hostname", "uname", "uptime", "date", "echo",
   "history", "sudo", "su", "now", "stack", "projects", "open", "contact", "about", "theme", "clear", "exit",
 ];
-
-function animateNumbers(root) {
-  const nodes = root.querySelectorAll("[data-count]");
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const duration = 1100;
-  const start = performance.now();
-
-  function frame(now) {
-    const progress = Math.min(1, (now - start) / duration);
-    const eased = 1 - Math.pow(1 - progress, 4);
-    for (const node of nodes) {
-      node.textContent = String(Math.round(Number(node.dataset.count) * eased));
-    }
-    if (progress < 1) requestAnimationFrame(frame);
-  }
-
-  if (reduced) {
-    for (const node of nodes) node.textContent = node.dataset.count;
-    return;
-  }
-
-  requestAnimationFrame(frame);
-}
-
-function revealTimeline(root) {
-  const items = root.querySelectorAll(".nw-tl-item");
-  if (!("IntersectionObserver" in window)) return;
-
-  root.classList.add("is-scripted");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-in");
-        observer.unobserve(entry.target);
-      }
-    },
-    { threshold: 0.25 },
-  );
-
-  for (const item of items) observer.observe(item);
-}
 
 function projectLines(project) {
   const lines = [project.name + " (" + project.year + ")", project.desc, project.href];
@@ -149,6 +84,7 @@ function mountTerminal(root) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let cwd = [];
   let cursor = 0;
+  let lineIndex = 0;
   let pendingPassword = null;
   let busy = false;
 
@@ -159,11 +95,16 @@ function mountTerminal(root) {
   function promptNode() {
     const wrap = document.createElement("span");
     wrap.className = "nw-ps1";
-    const who = document.createElement("b");
+    const who = document.createElement("span");
+    who.className = "nw-who";
     who.textContent = USER + "@" + HOST;
     const where = document.createElement("span");
-    where.textContent = ":" + pathLabel();
-    wrap.append(who, where, "$ ");
+    where.className = "nw-where";
+    where.textContent = pathLabel();
+    const mark = document.createElement("span");
+    mark.className = "nw-mark";
+    mark.textContent = "$";
+    wrap.append(who, " ", where, " ", mark, " ");
     return wrap;
   }
 
@@ -177,14 +118,15 @@ function mountTerminal(root) {
   }
 
   function append(node) {
+    node.style.setProperty("--d", Math.min(lineIndex, 16) * 16 + "ms");
+    lineIndex += 1;
     screen.append(node);
     scrollDown();
     return node;
   }
 
   function linkify(parent, text) {
-    const pattern = /(https?:\/\/[^\s]+)/g;
-    for (const part of text.split(pattern)) {
+    for (const part of text.split(/(https?:\/\/[^\s]+)/g)) {
       if (/^https?:\/\//.test(part)) {
         const anchor = document.createElement("a");
         anchor.href = part;
@@ -209,9 +151,22 @@ function mountTerminal(root) {
     for (const line of lines) print(line, className);
   }
 
+  function printColumns(cells, widths = []) {
+    const row = document.createElement("div");
+    row.className = "nw-line nw-cols";
+    cells.forEach(([text, className], index) => {
+      const cell = document.createElement("span");
+      if (className) cell.className = className;
+      if (widths[index]) cell.style.minWidth = widths[index] + "ch";
+      linkify(cell, text);
+      row.append(cell);
+    });
+    return append(row);
+  }
+
   function resolve(raw) {
     const text = raw.trim();
-    const rooted = text === "" ? false : /^(~|\/home\/guest|\/)/.test(text);
+    const rooted = text !== "" && /^(~|\/home\/guest|\/)/.test(text);
     const segments = rooted ? [] : [...cwd];
     const body = text.replace(/^(~|\/home\/guest|\/)/, "");
 
@@ -232,29 +187,25 @@ function mountTerminal(root) {
     return { segments, node };
   }
 
-  function listing(node) {
+  function entries(node) {
     return Object.keys(node.children)
       .sort()
-      .map((name) => (node.children[name].children ? name + "/" : name));
+      .map((name) => ({ name, dir: Boolean(node.children[name].children) }));
   }
 
   function neofetch() {
     const rows = [
-      [USER + "@" + HOST, ""],
-      ["-".repeat((USER + "@" + HOST).length), ""],
-      ["OS", "iTake Linux x86_64"],
-      ["Host", "portfolio"],
+      ["OS", "iTake Linux"],
       ["Uptime", currentYear - FRONTEND_SINCE + " years"],
-      ["Packages", stackTotal + " (stack)"],
       ["Shell", "itsh"],
-      ["Role", "full-stack dev"],
+      ["Packages", stackTotal + " (stack)"],
       ["Languages", stackGroups[0].items.slice(0, 4).map((item) => item[0]).join(", ")],
       ["Shipped", projects.length + " projects"],
       ["Status", "no longer part of new projects"],
     ];
 
     const box = document.createElement("div");
-    box.className = "nw-fetch";
+    box.className = "nw-line nw-fetch";
 
     const art = document.createElement("pre");
     art.className = "nw-logo";
@@ -263,21 +214,27 @@ function mountTerminal(root) {
     const info = document.createElement("div");
     info.className = "nw-info";
 
-    rows.forEach(([key, value], index) => {
+    const heading = document.createElement("div");
+    heading.className = "nw-info-title";
+    heading.textContent = USER + "@" + HOST;
+    info.append(heading);
+
+    for (const [key, value] of rows) {
       const row = document.createElement("div");
-      if (index === 0) row.className = "nw-info-title";
-      const label = document.createElement("b");
+      const label = document.createElement("span");
+      label.className = "nw-key";
       label.textContent = key;
-      row.append(label);
-      if (value) row.append("  " + value);
+      const text = document.createElement("span");
+      text.textContent = value;
+      row.append(label, text);
       info.append(row);
-    });
+    }
 
     const swatches = document.createElement("div");
     swatches.className = "nw-swatches";
     for (let i = 0; i < 8; i += 1) {
       const swatch = document.createElement("i");
-      swatch.style.opacity = String(0.12 + i * 0.12);
+      swatch.style.opacity = String(0.1 + i * 0.12);
       swatches.append(swatch);
     }
     info.append(swatches);
@@ -296,24 +253,24 @@ function mountTerminal(root) {
 
   const handlers = {
     help() {
-      printAll([
-        "iTake shell, version 1.0",
-        "",
-        "  ls [-l] [dir]   list files",
-        "  cd <dir>        change directory",
-        "  pwd             print working directory",
-        "  cat <file>      read a file",
-        "  neofetch        system information",
-        "  about           who is this",
-        "  now             what is going on right now",
-        "  stack [group]   the technologies, grouped",
-        "  projects        everything shipped so far",
-        "  open <name>     open a project's site",
-        "  contact         where to find me",
-        "  theme           switch between black and white",
-        "  uname, uptime, hostname, whoami, date, echo, history",
-        "  sudo, su, clear, exit",
-      ]);
+      const rows = [
+        ["ls [-l] [dir]", "list files"],
+        ["cd <dir>", "change directory"],
+        ["cat <file>", "read a file"],
+        ["neofetch", "system information"],
+        ["about", "who is this"],
+        ["now", "what is going on right now"],
+        ["stack [group]", "technologies, grouped"],
+        ["projects", "everything shipped"],
+        ["open <name>", "open a project's site"],
+        ["contact", "where to find me"],
+        ["theme", "switch black / white"],
+        ["clear", "clear the screen"],
+      ];
+      for (const [command, description] of rows) {
+        printColumns([[command, "nw-cmd"], [description, "nw-dim"]], [16]);
+      }
+      print("also: pwd, whoami, hostname, uname, uptime, date, echo, history, sudo, exit", "nw-dim");
     },
     ls(args) {
       const flags = args.filter((arg) => arg.startsWith("-"));
@@ -322,16 +279,30 @@ function mountTerminal(root) {
       if (!node) return print("ls: cannot access '" + target + "': No such file or directory");
       if (!node.children) return print(target);
 
-      const names = listing(node);
+      const list = entries(node);
       if (flags.some((flag) => flag.includes("l"))) {
-        print("total " + names.length);
-        for (const name of names) {
-          const isDir = name.endsWith("/");
-          print((isDir ? "drwxr-xr-x" : "-rw-r--r--") + "  " + USER + "  " + USER + "  " + name);
+        for (const item of list) {
+          printColumns(
+            [
+              [item.dir ? "drwxr-xr-x" : "-rw-r--r--", "nw-dim"],
+              [USER, "nw-dim"],
+              [item.name + (item.dir ? "/" : ""), item.dir ? "nw-dir" : ""],
+            ],
+            [12, 7],
+          );
         }
         return;
       }
-      print(names.join("  "));
+
+      const row = document.createElement("div");
+      row.className = "nw-line nw-listing";
+      for (const item of list) {
+        const cell = document.createElement("span");
+        cell.className = item.dir ? "nw-dir" : "";
+        cell.textContent = item.name + (item.dir ? "/" : "");
+        row.append(cell);
+      }
+      append(row);
     },
     cd(args) {
       const target = args[0];
@@ -375,7 +346,7 @@ function mountTerminal(root) {
     },
     uptime() {
       const clock = new Date().toTimeString().slice(0, 8);
-      print(" " + clock + " up " + (currentYear - FRONTEND_SINCE) + " years,  1 user,  load average: 0.08, 0.04, 0.01");
+      print(clock + " up " + (currentYear - FRONTEND_SINCE) + " years, 1 user, load average: 0.08, 0.04, 0.01");
     },
     date() {
       print(new Date().toString());
@@ -384,7 +355,7 @@ function mountTerminal(root) {
       print(args.join(" ").replace(/\$USER/g, USER).replace(/\$HOME/g, "/home/" + USER).replace(/\$HOSTNAME/g, HOST));
     },
     history() {
-      history.forEach((entry, index) => print(String(index + 1).padStart(4, " ") + "  " + entry));
+      history.forEach((entry, index) => printColumns([[String(index + 1), "nw-dim"], [entry]], [5]));
     },
     stack(args) {
       const query = args.join(" ").toLowerCase();
@@ -392,23 +363,31 @@ function mountTerminal(root) {
       if (!matches.length) {
         return print("no group called '" + query + "'. try: " + stackGroups.map((group) => group.title).join(", "));
       }
-      for (const group of matches) print(group.title.padEnd(10, " ") + group.items.map((item) => item[0]).join(", "));
+      for (const group of matches) {
+        printColumns([[group.title, "nw-cmd"], [group.items.map((item) => item[0]).join(", "), "nw-dim"]], [11]);
+      }
     },
     projects() {
       for (const project of projects) {
-        const role = project.detail ? "  " + project.detail.role : "";
-        print(project.year + "  " + project.name.padEnd(10, " ") + role);
+        printColumns(
+          [
+            [project.year, "nw-dim"],
+            [project.name, "nw-cmd"],
+            [project.detail ? project.detail.role : "", "nw-dim"],
+          ],
+          [6, 11],
+        );
       }
     },
     open(args) {
       const query = args.join(" ").toLowerCase();
       const project = projects.find((item) => item.name.toLowerCase() === query || item.id === query);
       if (!project) return print(query ? "open: no project called '" + query + "'" : "usage: open <project>");
-      print("opening " + project.href + " ...", "nw-muted");
+      print("opening " + project.href, "nw-dim");
       window.open(project.href, "_blank", "noopener");
     },
     contact() {
-      printAll(fileSystem.children["contact.txt"].read());
+      for (const [name, href] of Object.entries(links)) printColumns([[name, "nw-cmd"], [href]], [10]);
     },
     theme() {
       const toggle = document.querySelector('button[aria-label="Toggle theme"]');
@@ -419,10 +398,10 @@ function mountTerminal(root) {
       );
     },
     sudo(args) {
-      if (!args.length) return printAll(["usage: sudo <command>"]);
+      if (!args.length) return print("usage: sudo <command>");
       askPassword("[sudo] password for " + USER + ":", () => {
         print("Sorry, try again.");
-        print(USER + " is not in the sudoers file. This incident will be reported.");
+        print(USER + " is not in the sudoers file. This incident will be reported.", "nw-dim");
       });
     },
     su() {
@@ -432,37 +411,33 @@ function mountTerminal(root) {
       screen.textContent = "";
     },
     exit() {
-      print("logout");
+      print("logout", "nw-dim");
       busy = true;
       setTimeout(() => {
         screen.textContent = "";
         cwd = [];
         refreshPrompt();
         busy = false;
-        banner();
+        typeCommand("neofetch");
       }, 650);
     },
   };
 
   handlers.logout = handlers.exit;
 
-  function banner() {
-    print("iTake Linux 1.0 (GNU/Linux x86_64)", "nw-muted");
-    print("type 'help' for the list of commands.", "nw-muted");
-    print();
-  }
-
   function run(raw) {
     if (pendingPassword) {
       const done = pendingPassword;
       pendingPassword = null;
       input.type = "text";
-      input.placeholder = "help";
+      input.placeholder = "type help";
+      lineIndex = 0;
       done();
       scrollDown();
       return;
     }
 
+    lineIndex = 0;
     const text = raw.trim();
     const echo = document.createElement("div");
     echo.className = "nw-line nw-echo";
@@ -477,14 +452,13 @@ function mountTerminal(root) {
     const handler = handlers[name.toLowerCase()];
 
     if (handler) handler(args);
-    else print(name + ": command not found");
+    else print(name + ": command not found", "nw-dim");
 
     scrollDown();
   }
 
   function complete() {
-    const value = input.value;
-    const parts = value.split(/\s+/);
+    const parts = input.value.split(/\s+/);
     const last = parts[parts.length - 1].toLowerCase();
     let candidates;
 
@@ -496,7 +470,7 @@ function mountTerminal(root) {
       const slash = last.lastIndexOf("/");
       const base = slash >= 0 ? last.slice(0, slash + 1) : "";
       const { node } = resolve(base);
-      candidates = node?.children ? listing(node).map((name) => base + name) : [];
+      candidates = node?.children ? entries(node).map((item) => base + item.name + (item.dir ? "/" : "")) : [];
     }
 
     const matches = candidates.filter((candidate) => candidate.toLowerCase().startsWith(last));
@@ -507,15 +481,12 @@ function mountTerminal(root) {
       while (!match.toLowerCase().startsWith(prefix.toLowerCase())) prefix = prefix.slice(0, -1);
     }
 
-    parts[parts.length - 1] = matches.length === 1 && !prefix.endsWith("/") && parts.length === 1 ? prefix + " " : prefix;
+    parts[parts.length - 1] = matches.length === 1 && parts.length === 1 ? prefix + " " : prefix;
     input.value = parts.join(" ");
   }
 
-  function typeCommand(text, done) {
-    if (reducedMotion) {
-      run(text);
-      return done?.();
-    }
+  function typeCommand(text) {
+    if (reducedMotion) return run(text);
 
     busy = true;
     let index = 0;
@@ -528,7 +499,6 @@ function mountTerminal(root) {
         input.value = "";
         run(text);
         busy = false;
-        done?.();
       }, 220);
     }, 70);
   }
@@ -560,10 +530,13 @@ function mountTerminal(root) {
       handlers.clear();
     } else if (event.ctrlKey && event.key === "c") {
       event.preventDefault();
-      if (pendingPassword) pendingPassword = null;
+      pendingPassword = null;
       input.type = "text";
-      input.placeholder = "help";
-      print(promptNode().textContent + input.value + "^C");
+      input.placeholder = "type help";
+      const echo = document.createElement("div");
+      echo.className = "nw-line nw-echo";
+      echo.append(promptNode(), input.value + "^C");
+      append(echo);
       input.value = "";
     }
   });
@@ -573,66 +546,13 @@ function mountTerminal(root) {
   });
 
   refreshPrompt();
-  banner();
   setTimeout(() => typeCommand("neofetch"), 450);
 }
 
 function setup(root) {
   if (!root || root.dataset.ready) return;
   root.dataset.ready = "true";
-  animateNumbers(root);
-  revealTimeline(root);
   mountTerminal(root.querySelector(".nw-terminal"));
-}
-
-function Stat({ item }) {
-  return t("li", {
-    className: "nw-number",
-    children: [
-      t("span", {
-        className: "nw-value",
-        children: [e("span", { "data-count": item.value, children: "0" }), item.suffix],
-      }),
-      e("span", { className: "nw-caption", children: item.label }),
-    ],
-  });
-}
-
-function Milestone({ item, index }) {
-  return t("li", {
-    className: "nw-tl-item" + (item.live ? " is-live" : ""),
-    style: { "--n": index },
-    children: [
-      e("span", { className: "nw-tl-dot", "aria-hidden": true }),
-      e("span", { className: "nw-tl-year", children: item.year }),
-      t("div", {
-        className: "nw-tl-body",
-        children: [
-          e("strong", { children: item.title }),
-          item.text ? e("p", { children: item.text }) : null,
-          item.projects
-            ? e("ul", {
-                className: "nw-tl-projects",
-                children: item.projects.map((project) =>
-                  e(
-                    "li",
-                    {
-                      children: t("a", {
-                        href: project.href,
-                        target: "_blank",
-                        rel: "noreferrer",
-                        children: [project.name, project.detail ? e("small", { children: project.detail.role }) : null],
-                      }),
-                    },
-                    project.id,
-                  ),
-                ),
-              })
-            : null,
-        ],
-      }),
-    ],
-  });
 }
 
 function Now() {
@@ -641,72 +561,44 @@ function Now() {
     ref: setup,
     children: [
       t("section", {
-        className: "nw-section",
+        className: "nw-notice",
         children: [
-          t("span", { className: "nw-label", children: [e("i", { className: "nw-pulse", "aria-hidden": true }), "now"] }),
+          e("span", { className: "nw-notice-glow", "aria-hidden": true }),
+          e("span", { className: "nw-notice-icon", "aria-hidden": true, children: e("i", { className: "nw-pulse" }) }),
           t("div", {
-            className: "nw-status",
+            className: "nw-notice-copy",
             children: [
               e("strong", { children: "no longer part of new projects" }),
               e("span", { children: "past work stays online, everything new is on hold." }),
             ],
           }),
+        ],
+      }),
+      t("section", {
+        className: "nw-terminal",
+        "aria-label": "Terminal",
+        children: [
           t("div", {
-            className: "nw-build",
+            className: "nw-bar",
             children: [
-              t("div", {
-                className: "nw-build-head",
-                children: [e("span", { className: "nw-build-name", children: "Larp Client" }), e("span", { className: "nw-tag", children: "in progress" })],
-              }),
-              e("p", { children: "a Minecraft client with visuals, a HUD and a module system." }),
+              t("span", { className: "nw-dots", "aria-hidden": true, children: [e("i", {}), e("i", {}), e("i", {})] }),
+              e("span", { className: "nw-title", children: USER + "@" + HOST + ": ~" }),
             ],
           }),
-        ],
-      }),
-      t("section", {
-        className: "nw-section",
-        children: [
-          e("span", { className: "nw-label", children: "numbers" }),
-          e("ul", { className: "nw-numbers", children: numbers.map((item) => e(Stat, { item }, item.label)) }),
-        ],
-      }),
-      t("section", {
-        className: "nw-section",
-        children: [
-          e("span", { className: "nw-label", children: "timeline" }),
-          e("ol", { className: "nw-timeline", children: milestones.map((item, index) => e(Milestone, { item, index }, item.year)) }),
-        ],
-      }),
-      t("section", {
-        className: "nw-section",
-        children: [
-          e("span", { className: "nw-label", children: "terminal" }),
-          t("div", {
-            className: "nw-terminal",
+          e("div", { className: "nw-screen", "aria-live": "polite" }),
+          t("form", {
+            className: "nw-form",
+            autoComplete: "off",
             children: [
-              t("div", {
-                className: "nw-bar",
-                children: [
-                  t("span", { className: "nw-dots", "aria-hidden": true, children: [e("i", {}), e("i", {}), e("i", {})] }),
-                  e("span", { className: "nw-title", children: USER + "@" + HOST + ": ~" }),
-                ],
-              }),
-              e("div", { className: "nw-screen", "aria-live": "polite" }),
-              t("form", {
-                className: "nw-form",
-                autoComplete: "off",
-                children: [
-                  e("span", { className: "nw-prompt" }),
-                  e("input", {
-                    className: "nw-input",
-                    type: "text",
-                    spellCheck: false,
-                    autoCapitalize: "off",
-                    autoCorrect: "off",
-                    "aria-label": "Terminal command",
-                    placeholder: "help",
-                  }),
-                ],
+              e("span", { className: "nw-prompt" }),
+              e("input", {
+                className: "nw-input",
+                type: "text",
+                spellCheck: false,
+                autoCapitalize: "off",
+                autoCorrect: "off",
+                "aria-label": "Terminal command",
+                placeholder: "type help",
               }),
             ],
           }),

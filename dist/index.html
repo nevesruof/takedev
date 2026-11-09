@@ -10,14 +10,14 @@
     <meta name="theme-color" content="#030405">
     <script>
       (function () {
-        var modes = { auto: ["dark", "cover"], dark: ["dark", "neutral"], light: ["light", "neutral"] };
-        var saved = "auto";
         try {
-          saved = localStorage.getItem("take-theme") || "auto";
+          var saved = localStorage.getItem("theme");
+          var theme =
+            saved === "light" || saved === "dark"
+              ? saved
+              : "dark";
+          document.documentElement.dataset.theme = theme;
         } catch (e) {}
-        var mode = modes[saved] || modes.auto;
-        document.documentElement.dataset.theme = mode[0];
-        document.documentElement.dataset.palette = mode[1];
       })();
     </script>
     <meta property="og:type" content="website">
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="iTake">
     <meta name="twitter:description" content="full stack dev building things with modern web tech. frontend since 2020, full stack since 2023.">
     <meta name="twitter:image" content="https://bhop.codes/logo.svg">
-  <link rel="stylesheet" crossorigin href="./_bun/cp2fz0zewzlyt.whc977.x.css"><script type="module" crossorigin src="./_bun/7omcag2b79adh.ax3r5w.x.js?v=4-nav-motion"></script><link rel="stylesheet" href="/personal.css?v=4-nav-motion"><link rel="stylesheet" href="/palette.css?v=2"><script type="module" src="/theme-switcher.js?v=1"></script></head>
+  <link rel="stylesheet" crossorigin href="./_bun/cp2fz0zewzlyt.whc977.x.css"><script type="module" crossorigin src="./_bun/7omcag2b79adh.ax3r5w.x.js?v=5-theme"></script><link rel="stylesheet" href="/personal.css?v=4-nav-motion"><link rel="stylesheet" href="/palette.css?v=3"></head>
   <body>
     <div id="root"><div class="gi9ufc9wcsli1t40hsuayqc8gnkdubm8trpu702g" aria-hidden="true"><div class="szdwu426pfp4kvsuodpri1oj57omkmj1" style="background:radial-gradient(
       200% 200% at 50% -20%,

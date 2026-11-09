@@ -599,22 +599,6 @@ function Now() {
     ref: setup,
     children: [
       t("section", {
-        className: "nw-notice",
-        children: t("div", {
-          className: "nw-notice-pane",
-          children: [
-            t("span", { className: "nw-backdrop", "aria-hidden": true, children: [e("i", {}), e("i", {})] }),
-            t("div", {
-              className: "nw-notice-copy",
-              children: [
-                e("strong", { children: "no longer part of new projects" }),
-                e("span", { children: "past work stays online, everything new is on hold." }),
-              ],
-            }),
-          ],
-        }),
-      }),
-      t("section", {
         className: "nw-terminal",
         "aria-label": "Terminal",
         children: [
@@ -648,4 +632,28 @@ function Now() {
   });
 }
 
-export { Now as default };
+function Notice() {
+  return t("div", {
+    className: "nw nw-solo",
+    children: [
+      t("section", {
+          className: "nw-notice",
+          children: t("div", {
+            className: "nw-notice-pane",
+            children: [
+              t("span", { className: "nw-backdrop", "aria-hidden": true, children: [e("i", {}), e("i", {})] }),
+              t("div", {
+                className: "nw-notice-copy",
+                children: [
+                  e("strong", { children: "no longer part of new projects" }),
+                  e("span", { children: "past work stays online, everything new is on hold." }),
+                ],
+              }),
+            ],
+          }),
+        }),
+    ],
+  });
+}
+
+export { Now as default, Notice };

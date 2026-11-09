@@ -1,5 +1,4 @@
 .stk {
-  --brand: var(--fg);
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -109,7 +108,7 @@
 }
 
 .stk-chip {
-  --tint: color-mix(in srgb, var(--brand) 62%, var(--fg));
+  --tint: var(--fg);
   position: relative;
   display: inline-flex;
   align-items: center;

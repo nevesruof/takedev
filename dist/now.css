@@ -237,38 +237,9 @@
   line-height: 1.55;
 }
 
-.nw-logo {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  width: 190px;
-  color: var(--fg);
-}
-
-.nw-logo {
-  position: relative;
-  isolation: isolate;
-}
-
-.nw-logo::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 20% 10% 4%;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 9%, transparent), transparent);
-  filter: blur(12px);
-}
-
-.nw-logo svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .nw-info {
   display: flex;
-  flex: 1 1 260px;
+  flex: 1 1 auto;
   flex-direction: column;
   min-width: 0;
 }
@@ -278,6 +249,11 @@
   padding-bottom: 6px;
   border-bottom: 1px solid color-mix(in srgb, var(--fg) 9%, transparent);
   font-weight: 500;
+}
+
+.nw-kv {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
 }
 
 .nw-key {

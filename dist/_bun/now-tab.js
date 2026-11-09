@@ -32,54 +32,6 @@ function projectLines(project) {
   return lines;
 }
 
-const SVG_NS = "http://www.w3.org/2000/svg";
-
-function svgNode(name, attributes = {}, children = []) {
-  const node = document.createElementNS(SVG_NS, name);
-  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
-  node.append(...children);
-  return node;
-}
-
-function createMark() {
-  const id = "nw-car-" + Math.random().toString(36).slice(2, 8);
-  const line = { stroke: "currentColor", "stroke-width": "1.6", "stroke-linecap": "round", "stroke-linejoin": "round", fill: "none" };
-
-  return svgNode("svg", { viewBox: "0 0 200 80", width: "168", height: "67", "aria-hidden": "true", fill: "none" }, [
-    svgNode("defs", {}, [
-      svgNode("linearGradient", { id: id + "-body", x1: "0", y1: "0", x2: "0", y2: "1" }, [
-        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.16" }),
-        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.02" }),
-      ]),
-      svgNode("linearGradient", { id: id + "-ink", x1: "0", y1: "0", x2: "1", y2: "0" }, [
-        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.45" }),
-        svgNode("stop", { offset: "0.55", "stop-color": "currentColor", "stop-opacity": "0.95" }),
-        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.7" }),
-      ]),
-    ]),
-    svgNode("ellipse", { cx: "100", cy: "69", rx: "82", ry: "3.2", fill: "currentColor", "fill-opacity": "0.12" }),
-    svgNode("path", {
-      ...line,
-      stroke: "url(#" + id + "-ink)",
-      fill: "url(#" + id + "-body)",
-      d: "M18 56V46C18 41 22 39 29 38C50 35 64 22 92 21C108 21 119 28 128 34C146 36 168 38 177 46C181 49 181 53 178 56H164A12 12 0 0 0 140 56H60A12 12 0 0 0 36 56Z",
-    }),
-    svgNode("path", {
-      ...line,
-      "stroke-width": "1.2",
-      "stroke-opacity": "0.7",
-      d: "M68 33C78 26 86 24 94 24C106 24 113 29 120 33ZM96 24V33M93 33L91 53",
-    }),
-    svgNode("path", { ...line, "stroke-width": "1.2", "stroke-opacity": "0.7", d: "M158 40L172 43M176 56H186" }),
-    svgNode("path", { ...line, "stroke-width": "3", stroke: "currentColor", "stroke-opacity": "0.9", d: "M10 29L40 26" }),
-    svgNode("path", { ...line, "stroke-width": "1.4", "stroke-opacity": "0.8", d: "M21 40V30M33 38V27.5" }),
-    ...[48, 152].flatMap((cx) => [
-      svgNode("circle", { ...line, cx, cy: "56", r: "10", "stroke-width": "1.6" }),
-      svgNode("circle", { ...line, cx, cy: "56", r: "4", "stroke-width": "1.2", "stroke-opacity": "0.6" }),
-    ]),
-  ]);
-}
-
 function createFileSystem() {
   const dir = (children) => ({ children });
   const file = (read) => ({ read });
@@ -247,10 +199,6 @@ function mountTerminal(root) {
     const box = document.createElement("div");
     box.className = "nw-line nw-fetch";
 
-    const art = document.createElement("div");
-    art.className = "nw-logo";
-    art.append(createMark());
-
     const info = document.createElement("div");
     info.className = "nw-info";
 
@@ -266,6 +214,7 @@ function mountTerminal(root) {
       label.textContent = key;
       const text = document.createElement("span");
       text.textContent = value;
+      row.className = "nw-kv";
       row.append(label, text);
       info.append(row);
     }
@@ -279,7 +228,7 @@ function mountTerminal(root) {
     }
     info.append(swatches);
 
-    box.append(art, info);
+    box.append(info);
     append(box);
     screen.scrollTop = Math.max(0, box.offsetTop - 12);
   }

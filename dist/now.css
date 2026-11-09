@@ -20,40 +20,37 @@
   animation-delay: 0.08s;
 }
 
-.nw-notice {
-  position: relative;
-  isolation: isolate;
-}
-
 .nw-backdrop {
   position: absolute;
-  z-index: -1;
-  inset: -22px -10px;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .nw-backdrop i {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 30%, transparent), transparent);
-  filter: blur(6px);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 5%, transparent), transparent);
+  filter: blur(14px);
 }
 
 .nw-backdrop i:first-child {
-  top: 0;
-  left: 6%;
-  width: 46%;
-  height: 100%;
-  animation: nw-drift-a 11s ease-in-out infinite alternate;
+  top: -40%;
+  left: 0;
+  width: 55%;
+  height: 180%;
+  animation: nw-drift-a 12s ease-in-out infinite alternate;
 }
 
 .nw-backdrop i:last-child {
-  right: 4%;
-  bottom: 0;
-  width: 38%;
-  height: 80%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 20%, transparent), transparent);
-  animation: nw-drift-b 14s ease-in-out infinite alternate;
+  right: 0;
+  bottom: -50%;
+  width: 45%;
+  height: 160%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 3%, transparent), transparent);
+  animation: nw-drift-b 15s ease-in-out infinite alternate;
 }
 
 .nw-notice-pane {
@@ -62,14 +59,14 @@
   border: 1px solid var(--glass-line);
   border-radius: 18px;
   background: color-mix(in srgb, var(--bg) 58%, transparent);
-  -webkit-backdrop-filter: blur(26px) saturate(150%);
-  backdrop-filter: blur(26px) saturate(150%);
-  box-shadow:
-    inset 0 1px 0 var(--glass-shine),
-    0 30px 60px -34px rgb(0 0 0 / 0.8);
+  box-shadow: inset 0 1px 0 var(--glass-shine);
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .nw-notice-copy {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -234,39 +231,32 @@
 .nw-fetch {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 10px 26px;
+  align-items: center;
+  gap: 14px 22px;
   margin: 8px 0 6px;
   line-height: 1.55;
 }
 
-.nw-logo {
-  position: relative;
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 176px;
-  height: 84px;
-  color: var(--fg);
-  isolation: isolate;
+.nw-art {
+  container-type: inline-size;
+  flex: 0 1 280px;
+  width: 280px;
+  max-width: 100%;
 }
 
-.nw-logo::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 8% 6% 0;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 22%, transparent), transparent);
-  filter: blur(10px);
-}
-
-.nw-logo svg {
-  display: block;
+.nw-art pre {
+  margin: 0;
+  color: color-mix(in srgb, var(--fg) 78%, transparent);
+  font: inherit;
+  font-size: calc(100cqw / 43.2);
+  line-height: 1;
+  white-space: pre;
+  user-select: none;
 }
 
 .nw-info {
   display: flex;
+  flex: 1 1 260px;
   flex-direction: column;
   min-width: 0;
 }
@@ -333,9 +323,6 @@
     font-size: 12px;
   }
 
-  .nw-fetch {
-    flex-wrap: nowrap;
-  }
 }
 
 @keyframes nw-in {
@@ -409,5 +396,5 @@
 }
 
 :root[data-theme=light] .nw-backdrop i {
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 20%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 8%, transparent), transparent);
 }

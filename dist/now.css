@@ -1,7 +1,7 @@
 .nw {
-  --glass: color-mix(in srgb, var(--fg) 6%, transparent);
-  --glass-line: color-mix(in srgb, var(--fg) 13%, transparent);
-  --glass-shine: color-mix(in srgb, var(--fg) 22%, transparent);
+  --glass: color-mix(in srgb, var(--fg) 3.5%, transparent);
+  --glass-line: color-mix(in srgb, var(--fg) 10%, transparent);
+  --glass-shine: color-mix(in srgb, var(--fg) 13%, transparent);
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -25,11 +25,11 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 18px 14px 14px;
+  padding: 18px 22px;
   border: 1px solid var(--glass-line);
   border-radius: 18px;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--fg) 9%, transparent), color-mix(in srgb, var(--fg) 2%, transparent) 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--fg) 5%, transparent), color-mix(in srgb, var(--fg) 1%, transparent) 60%),
     var(--glass);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   backdrop-filter: blur(22px) saturate(160%);
@@ -49,39 +49,9 @@
   width: 62%;
   height: 220%;
   border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 16%, transparent), transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fg) 8%, transparent), transparent);
   filter: blur(18px);
   animation: nw-drift 9s ease-in-out infinite alternate;
-}
-
-.nw-notice-icon {
-  position: relative;
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--glass-line);
-  border-radius: 13px;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--fg) 14%, transparent), color-mix(in srgb, var(--fg) 3%, transparent));
-  box-shadow: inset 0 1px 0 var(--glass-shine);
-}
-
-.nw-pulse {
-  position: relative;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--fg);
-}
-
-.nw-pulse::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: var(--fg);
-  animation: nw-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .nw-notice-copy {
@@ -92,8 +62,9 @@
 }
 
 .nw-notice-copy strong {
+  color: color-mix(in srgb, var(--fg) 86%, transparent);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 
@@ -107,7 +78,7 @@
   flex-direction: column;
   border: 1px solid var(--glass-line);
   border-radius: 18px;
-  background: color-mix(in srgb, var(--bg) 62%, transparent);
+  background: color-mix(in srgb, var(--bg) 58%, transparent);
   -webkit-backdrop-filter: blur(22px) saturate(160%);
   backdrop-filter: blur(22px) saturate(160%);
   box-shadow:
@@ -150,6 +121,7 @@
 }
 
 .nw-screen {
+  color: color-mix(in srgb, var(--fg) 84%, transparent);
   height: clamp(280px, 52vh, 380px);
   padding: 10px 18px 6px;
   overflow-y: auto;
@@ -197,12 +169,12 @@
 }
 
 .nw-cmd {
-  color: var(--fg);
+  color: color-mix(in srgb, var(--fg) 92%, transparent);
 }
 
 .nw-dir {
-  color: var(--fg);
-  font-weight: 600;
+  color: color-mix(in srgb, var(--fg) 92%, transparent);
+  font-weight: 500;
 }
 
 .nw-cols {
@@ -236,8 +208,8 @@
 }
 
 .nw-where {
-  color: var(--fg);
-  font-weight: 600;
+  color: color-mix(in srgb, var(--fg) 92%, transparent);
+  font-weight: 500;
 }
 
 .nw-mark {
@@ -254,12 +226,20 @@
 }
 
 .nw-logo {
-  margin: 0;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 84px;
+  height: 84px;
   color: var(--fg);
-  font: inherit;
-  font-size: 12px;
-  line-height: 1;
-  opacity: 0.92;
+  border: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
+  border-radius: 20px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--fg) 7%, transparent), transparent 70%);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--fg) 10%, transparent);
+}
+
+.nw-logo svg {
+  display: block;
 }
 
 .nw-info {
@@ -271,8 +251,8 @@
 .nw-info-title {
   margin-bottom: 6px;
   padding-bottom: 6px;
-  border-bottom: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
-  font-weight: 600;
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 9%, transparent);
+  font-weight: 500;
 }
 
 .nw-key {
@@ -283,6 +263,7 @@
 
 .nw-swatches {
   display: flex;
+  opacity: 0.6;
   gap: 3px;
   margin-top: 10px;
 }
@@ -358,18 +339,6 @@
   }
 }
 
-@keyframes nw-ping {
-  0% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  80%,
-  100% {
-    opacity: 0;
-    transform: scale(3.4);
-  }
-}
-
 @keyframes nw-drift {
   from {
     transform: translate3d(0, 0, 0);
@@ -383,8 +352,7 @@
   .nw-notice,
   .nw-terminal,
   .nw-line,
-  .nw-notice-glow,
-  .nw-pulse::after {
+  .nw-notice-glow {
     animation: none;
   }
 }

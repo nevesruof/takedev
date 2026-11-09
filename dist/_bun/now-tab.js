@@ -16,14 +16,6 @@ const links = {
 const currentYear = new Date().getFullYear();
 const stackTotal = stackGroups.reduce((sum, group) => sum + group.items.length, 0);
 
-const logo = [
-  "╭───────────╮",
-  "│ ▀▀▀███▀▀▀ │",
-  "│    ███    │",
-  "│    ███    │",
-  "│    ▀▀▀  ● │",
-  "╰───────────╯",
-];
 
 const commandNames = [
   "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "hostname", "uname", "uptime", "date", "echo",
@@ -38,6 +30,50 @@ function projectLines(project) {
     lines.push("stats    " + project.detail.stats.join(", "));
   }
   return lines;
+}
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function svgNode(name, attributes = {}, children = []) {
+  const node = document.createElementNS(SVG_NS, name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  node.append(...children);
+  return node;
+}
+
+function createMark() {
+  const id = "nw-mark-" + Math.random().toString(36).slice(2, 8);
+
+  return svgNode("svg", { viewBox: "0 0 64 64", width: "72", height: "72", "aria-hidden": "true", fill: "none" }, [
+    svgNode("defs", {}, [
+      svgNode("linearGradient", { id: id + "-ring", x1: "10", y1: "8", x2: "54", y2: "58", gradientUnits: "userSpaceOnUse" }, [
+        svgNode("stop", { offset: "0", "stop-color": "currentColor", "stop-opacity": "0.9" }),
+        svgNode("stop", { offset: "1", "stop-color": "currentColor", "stop-opacity": "0.18" }),
+      ]),
+    ]),
+    svgNode("circle", {
+      cx: "32",
+      cy: "32",
+      r: "26",
+      stroke: "url(#" + id + "-ring)",
+      "stroke-width": "1.6",
+      "stroke-linecap": "round",
+      "stroke-dasharray": "148 15.4",
+      transform: "rotate(-35 32 32)",
+    }),
+    ...[26, 38].map((cx) =>
+      svgNode("circle", {
+        cx,
+        cy: "32",
+        r: "12",
+        fill: "currentColor",
+        "fill-opacity": "0.3",
+        stroke: "currentColor",
+        "stroke-opacity": "0.55",
+        "stroke-width": "1",
+      }),
+    ),
+  ]);
 }
 
 function createFileSystem() {
@@ -207,9 +243,9 @@ function mountTerminal(root) {
     const box = document.createElement("div");
     box.className = "nw-line nw-fetch";
 
-    const art = document.createElement("pre");
+    const art = document.createElement("div");
     art.className = "nw-logo";
-    art.textContent = logo.join("\n");
+    art.append(createMark());
 
     const info = document.createElement("div");
     info.className = "nw-info";
@@ -564,7 +600,6 @@ function Now() {
         className: "nw-notice",
         children: [
           e("span", { className: "nw-notice-glow", "aria-hidden": true }),
-          e("span", { className: "nw-notice-icon", "aria-hidden": true, children: e("i", { className: "nw-pulse" }) }),
           t("div", {
             className: "nw-notice-copy",
             children: [
